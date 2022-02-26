@@ -149,28 +149,6 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
         return result;
     }
 
-    private <T> String displayList(T[] list) {
-        String contents = "";
-        String finalString = "";
-        String comma = ",";
-        String opening = "[";
-        String closing = "]";
-        int numberOfItems = this.numberOfElements;
-        if (numberOfItems == 0) {
-            finalString = opening + closing;
-        }
-        for (int i = 0; i < numberOfItems; i++) {
-            if (i != numberOfItems - 1) {
-                contents += list[i] + comma;
-                finalString = opening + contents;
-            } else {
-                contents += list[i];
-                finalString = opening + contents + closing;
-            }
-        }
-        return finalString;
-    }
-
     private void makeRoom(int givenIndex) {
         if (isValid(givenIndex)) {
             if (givenIndex == 0) {
@@ -196,10 +174,32 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
         }
         return true;
     }
+    @SuppressWarnings("hiding")
+    private <T> String displayList(T[] list) {
+        String contents = "";
+        String finalString = "";
+        String comma = ", ";
+        String opening = "[";
+        String closing = "]";
+        int numberOfItems = this.numberOfElements;
+        if (numberOfItems == 0) {
+            finalString = opening + closing;
+        }
+        for (int i = 0; i < numberOfItems; i++) {
+            if (i != numberOfItems - 1) {
+                contents += list[i] + comma;
+                finalString = opening + contents;
+            } else {
+                contents += list[i];
+                finalString = opening + contents + closing;
+            }
+        }
+        return finalString;
+    }
 
     @Override
     public String toString() {
-        String AFBCList = "size= " + numberOfElements + "\tcapacity= " + list.length + "  " + displayList(list);
+        String AFBCList = "size=" + numberOfElements + ";" + " capacity=" + list.length + ";   " + displayList(list);
         return AFBCList;
     }
 }

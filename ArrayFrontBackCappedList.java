@@ -1,7 +1,7 @@
 /**
- * A class that implements a list of objects using an array.
- * Entries in a list have positions that begin with 0. Entries can only be added
- * to the front or Back of the list.
+ * A class that implements a generic data type list using an array.
+ * Entries in the list have positions that begin with 0.
+ * Entries can only be added to the front or back of the list.
  * Duplicate entries are allowed.
  * 
  * @author Chris Tolan

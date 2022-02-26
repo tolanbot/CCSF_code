@@ -16,6 +16,7 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
         this(MAX_SIZE);
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayFrontBackCappedList(int maxSize) {
         if (capacityOK(maxSize)) {
             list = (T[]) new Object[maxSize];
@@ -174,6 +175,7 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
         }
         return true;
     }
+
     @SuppressWarnings("hiding")
     private <T> String displayList(T[] list) {
         String contents = "";
@@ -199,7 +201,7 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
 
     @Override
     public String toString() {
-        String AFBCList = "size=" + numberOfElements + ";" + " capacity=" + list.length + ";   " + displayList(list);
-        return AFBCList;
+        String listString = "size=" + numberOfElements + ";" + " capacity=" + list.length + ";   " + displayList(list);
+        return listString;
     }
 }

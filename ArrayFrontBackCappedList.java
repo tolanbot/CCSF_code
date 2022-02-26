@@ -24,7 +24,7 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
     }
 
     public boolean addFront(T newEntry) {
-        if (!isFull()) {
+        if (!isFull() && numberOfElements<=size()) {
             makeRoom(0);
             list[0] = newEntry;
             numberOfElements++;
@@ -68,7 +68,7 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
     }
 
     public void clear() {
-        for (int i = numberOfElements; i > 0; i--) {
+        for (int i = numberOfElements-1; i >= 0; i--) {
             list[i] = null;
             numberOfElements--;
         }
@@ -98,7 +98,7 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
     public int lastIndexOf(T anEntry) {
         int index = -1;
         if (!isEmpty()) {
-            for (int i = numberOfElements; i > 0; i--) {
+            for (int i = numberOfElements-1; i >= 0; i--) {
                 if (anEntry.equals(list[i])) {
                     index = i;
                     return index;
@@ -176,13 +176,13 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
             if (givenIndex == 0) {
                 int newIndex = givenIndex;
                 int lastIndex = numberOfElements;
-                for (int index = lastIndex; index >= newIndex; index--) {
+                for (int index = lastIndex-1; index >= newIndex; index--) {
                     list[index + 1] = list[index];
                 }
             }
             if (givenIndex == 1) {
                 int lastIndex = numberOfElements;
-                for (int index = 0; index < lastIndex; index++) {
+                for (int index = 0; index < lastIndex-1; index++) {
                     list[index] = list[index + 1];
                 }
             }

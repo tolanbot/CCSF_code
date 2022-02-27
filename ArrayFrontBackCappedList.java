@@ -1,30 +1,37 @@
 /**
- * A class that implements a generic data type list using an array.
- * Entries in the list have positions that begin with 0.
- * Entries can only be added to the front or back of the list.
+ * A class that implements a list of objects using an array.
+ * Entries in a list have positions that begin with 0. Entries can only be added
+ * to the front or Back of the list.
  * Duplicate entries are allowed.
  * 
  * @author Chris Tolan
- * @version 2.0
+ * @version 1.0
  */
 public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface<T> {
     private T[] list;
     private int numberOfElements;
-    private static final int MAX_SIZE = 10000;
+    private static final int DEFAULT_SIZE = 25;
+    private static final int MAX_SIZE = 1000;
+    private boolean initialized = false;
 
     public ArrayFrontBackCappedList() {
-        this(MAX_SIZE);
+        this(DEFAULT_SIZE);
     }
 
     @SuppressWarnings("unchecked")
-    public ArrayFrontBackCappedList(int maxSize) {
-        if (capacityOK(maxSize)) {
-            list = (T[]) new Object[maxSize];
+    public ArrayFrontBackCappedList(int listCapacity) {
+        if (capacityOK(listCapacity)) {
+            if(listCapacity> MAX_SIZE){
+                listCapacity = MAX_SIZE;
+            }
+            list = (T[]) new Object[listCapacity];
             numberOfElements = 0;
+            initialized = true;
         }
     }
 
     public boolean addFront(T newEntry) {
+        isInitialzied();
         if (!isFull() && numberOfElements<=size()) {
             makeRoom(0);
             list[0] = newEntry;
@@ -36,9 +43,10 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
     }
   
     public boolean addBack(T newEntry) {
+        isInitialzied();
         if (!isFull()) {
             numberOfElements++;
-            list[size() - 1] = newEntry;
+            list[size()-1] = newEntry;
             return true;
         } else {
             return false;
@@ -46,6 +54,7 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
     }
 
     public T removeFront() {
+        isInitialzied();
         T removedItem;
         if (!isEmpty()) {
             removedItem = list[0];
@@ -58,9 +67,10 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
     }
 
     public T removeBack() {
+        isInitialzied();
         T removedItem;
         if (!isEmpty()) {
-            removedItem = list[size() - 1];
+            removedItem = list[size()-1];
             numberOfElements--;
             return removedItem;
         } else {
@@ -69,6 +79,7 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
     }
 
     public void clear() {
+        isInitialzied();
         for (int i = numberOfElements-1; i >= 0; i--) {
             list[i] = null;
             numberOfElements--;
@@ -76,6 +87,7 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
     }
 
     public T getEntry(int givenIndex) {
+        isInitialzied();
         if (givenIndex >= 0 && givenIndex < numberOfElements) {
             T entry = list[givenIndex];
             return entry;
@@ -84,6 +96,7 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
     }
 
     public int indexOf(T anEntry) {
+        isInitialzied();
         int index = -1;
         if (!isEmpty()) {
             for (int i = 0; i < numberOfElements; i++) {
@@ -97,6 +110,7 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
     }
 
     public int lastIndexOf(T anEntry) {
+        isInitialzied();
         int index = -1;
         if (!isEmpty()) {
             for (int i = numberOfElements-1; i >= 0; i--) {
@@ -118,6 +132,7 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
     }
 
     public boolean contains(T key) {
+        isInitialzied();
         boolean found = false;
         int index = 0;
         while (!found && index < numberOfElements) {
@@ -134,44 +149,46 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
     }
 
     private boolean isValid(int givenIndex) {
-        if ((givenIndex >= 0) && (givenIndex <= numberOfElements + 1)) {
+        if ((givenIndex >= 0) && (givenIndex <= numberOfElements+1)) {
             return true;
         } else {
             return false;
         }
     }
-
-    public T[] toArray() {
-        @SuppressWarnings("unchecked")
-        T[] result = (T[]) new Object[numberOfElements];
-        for (int index = 0; index < numberOfElements; index++) {
-            result[index] = list[index];
-        }
-        return result;
-    }
-
+	private void isInitialzied() {
+		if (!initialized) {
+			throw new SecurityException("ArrayBag object is corrupt.");
+		}
+	} 
     private void makeRoom(int givenIndex) {
+        isInitialzied();
+        assert (givenIndex >= 1) && (givenIndex <= numberOfElements + 1);
         if (isValid(givenIndex)) {
             if (givenIndex == 0) {
                 int newIndex = givenIndex;
                 int lastIndex = numberOfElements;
                 for (int index = lastIndex-1; index >= newIndex; index--) {
-                    list[index + 1] = list[index];
+                    list[index+1] = list[index];
                 }
             }
             if (givenIndex == 1) {
                 int lastIndex = numberOfElements;
                 for (int index = 0; index < lastIndex-1; index++) {
-                    list[index] = list[index + 1];
+                    list[index] = list[index+1];
                 }
             }
         }
     }
 
     private boolean capacityOK(int capacity) {
+        if(capacity < 0){
+            throw new IllegalArgumentException("Initial capacity must be greater than 0 | You entered " + capacity);
+        }
         if (capacity > MAX_SIZE) {
-            throw new IllegalStateException(
-                    "Maximum Size Exceeded: Cannot create requested List.");
+            capacity = MAX_SIZE;
+            System.out.println("The requested capcity you haved entered exceedes the allowed capacity for List.  List has been created with maximum capacity of: " + MAX_SIZE);
+            // throw new IllegalStateException(
+            //         "Maximum Size Exceeded: Cannot create requested List.");
         }
         return true;
     }
@@ -188,7 +205,7 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
             finalString = opening + closing;
         }
         for (int i = 0; i < numberOfItems; i++) {
-            if (i != numberOfItems - 1) {
+            if (i != numberOfItems-1) {
                 contents += list[i] + comma;
                 finalString = opening + contents;
             } else {
@@ -199,6 +216,16 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
         return finalString;
     }
 
+    public T[] toArray() {
+        isInitialzied();
+        @SuppressWarnings("unchecked")
+        T[] result = (T[]) new Object[numberOfElements];
+        for (int index = 0; index < numberOfElements; index++) {
+            result[index] = list[index];
+        }
+        return result;
+    }
+   
     @Override
     public String toString() {
         String listString = "size=" + numberOfElements + ";" + " capacity=" + list.length + ";   " + displayList(list);

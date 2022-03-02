@@ -186,9 +186,7 @@ public class ArrayFrontBackCappedList<T> implements FrontBackCappedListInterface
         }
         if (capacity > MAX_SIZE) {
             capacity = MAX_SIZE;
-            System.out.println("The requested capcity you haved entered exceedes the allowed capacity for List.  List has been created with maximum capacity of: " + MAX_SIZE);
-            // throw new IllegalStateException(
-            //         "Maximum Size Exceeded: Cannot create requested List.");
+            System.out.println("The requested capacity you haved entered exceedes the allowed capacity for List.  List has been created with maximum capacity of: " + MAX_SIZE);
         }
         return true;
     }

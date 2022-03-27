@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterface<T> {
 
 	private Node head, tail;
@@ -6,13 +8,14 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	private int MAX_SIZE = 100;
 	private boolean initialized = false;
 
-	public LinkedFrontBackCappedList(){
+	public LinkedFrontBackCappedList() {
 		this(DEFAULT_SIZE);
 	}
+
 	public LinkedFrontBackCappedList(int capacity) {
 		initializeDataFields();
-		if(capacityOK(capacity)){
-				MAX_SIZE = capacity;
+		if (capacityOK(capacity)) {
+			MAX_SIZE = capacity;
 		}
 
 		initialized = true;
@@ -23,18 +26,21 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		tail = null;
 		numberOfElements = 0;
 	}
+
 	private boolean capacityOK(int capacity) {
-        if(capacity < 0){
-            throw new IllegalArgumentException("Initial capacity must be greater than 0 | You entered " + capacity);
-        }
-        if (capacity > MAX_SIZE) {
-            capacity = MAX_SIZE;
-            System.out.println("The requested capcity you haved entered exceedes the allowed capacity for List.  List has been created with maximum capacity of: " + MAX_SIZE);
-            // throw new IllegalStateException(
-            //         "Maximum Size Exceeded: Cannot create requested List.");
-        }
-        return true;
-    }
+		if (capacity < 0) {
+			throw new IllegalArgumentException("Initial capacity must be greater than 0 | You entered " + capacity);
+		}
+		if (capacity > MAX_SIZE) {
+			capacity = MAX_SIZE;
+			System.out.println(
+					"The requested capcity you haved entered exceedes the allowed capacity for List.  List has been created with maximum capacity of: "
+							+ MAX_SIZE);
+			// throw new IllegalStateException(
+			// "Maximum Size Exceeded: Cannot create requested List.");
+		}
+		return true;
+	}
 
 	public boolean addFront(T newEntry) {
 		Node newNode = new Node(newEntry);
@@ -69,7 +75,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	public T removeFront() {
 		isInitialzied();
 		T removed = null;
-		if (head!= null) {
+		if (head != null) {
 			removed = head.getData();
 			head = head.next;
 			numberOfElements--;
@@ -79,7 +85,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 
 	public T removeBack() {
 		T removed = null;
-		if (tail!= null) {
+		if (tail != null) {
 			Node previousNode = getNodeAt(numberOfElements - 1);
 			tail = previousNode;
 			numberOfElements--;
@@ -93,8 +99,8 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 
 	public T getEntry(int givenIndex) {
 		T entry = null;
-		if(head!=null){
-			if(givenIndex >0 && givenIndex < numberOfElements){
+		if (head != null) {
+			if (givenIndex > 0 && givenIndex < numberOfElements) {
 				Node nodeAt = getNodeAt(givenIndex);
 				entry = nodeAt.getData();
 			}
@@ -102,20 +108,20 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		return entry;
 	}
 
-	
-		public int indexOf(T anEntry) {
+	public int indexOf(T anEntry) {
 		int index = -1;
 		Node current = head;
 		while (head != null) {
 			index++;
-			if(current.getData().equals(anEntry)){
+			if (current.getData().equals(anEntry)) {
 				return index;
-			}else{
+			} else {
 				current = current.next;
 			}
 		}
 		return index;
 	}
+
 	public int lastIndexOf(T anEntry) {
 		int index = -1;
 		if (head != null) {
@@ -128,26 +134,30 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		}
 		return index;
 	}
-	public boolean isFull(){
-		return numberOfElements>=MAX_SIZE;
+
+	public boolean isFull() {
+		return numberOfElements >= MAX_SIZE;
 	}
-	public boolean isEmpty(){
+
+	public boolean isEmpty() {
 		return numberOfElements == 0;
 	}
-	public boolean contains(T key){
+
+	public boolean contains(T key) {
 		boolean found = false;
 
 		Node current = head;
-		while(!found && current !=null){
-			if(current.equals(key)){
+		while (!found && current != null) {
+			if (current.equals(key)) {
 				found = true;
-			}else{
+			} else {
 				current = current.next;
 			}
 		}
 		return found;
 	}
-	public int size(){
+
+	public int size() {
 		return this.numberOfElements;
 	}
 
@@ -159,8 +169,8 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 
 	private Node getNodeAt(int givenIndex) {
 		Node currentNode = head;
-		if(currentNode!=null){
-			if(givenIndex >0 && givenIndex < numberOfElements-1){
+		if (currentNode != null) {
+			if (givenIndex > 0 && givenIndex < numberOfElements - 1) {
 
 				for (int i = 1; i < givenIndex; i++) {
 					currentNode = currentNode.next;
@@ -168,6 +178,38 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 			}
 		}
 		return currentNode;
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T> void printNode(Node<T> firstNode) {
+		Node<T> printNode = firstNode;
+		while (printNode != null) {
+			T dataNode = printNode.getData();
+			System.out.print(dataNode);
+			printNode = printNode.next;
+		}
+	}
+
+	public String toString() {
+		String str = printNode(head) + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
+				+ head.getData() + "\ttail= " + tail.getData();
+		return str;
+	}
+
+	public T[] toArray() {
+		// The cast is safe because the new array contains null entries
+		@SuppressWarnings("unchecked")
+		T[] result = (T[]) new Object[numberOfElements]; // changed from Object[]
+
+		int index = 0;
+		Node currentNode = head;
+		while ((index < numberOfElements) && (currentNode != null)) {
+			result[index] = currentNode.data;
+			currentNode = currentNode.next;
+			index++;
+		}
+
+		return result;
 	}
 
 	public class Node {

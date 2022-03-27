@@ -45,9 +45,17 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	public boolean addFront(T newEntry) {
 		Node newNode = new Node(newEntry);
 		if (canAdd()) {
-			head = newNode;
-			numberOfElements++;
-			return true;
+			if(head == null){
+				head = newNode;
+				numberOfElements++;
+				return true;
+			}else{
+
+				newNode.next = head.next;
+				head = newNode;
+				numberOfElements++;
+				return true;
+			}
 		} else {
 			return false;
 		}
@@ -180,32 +188,41 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		return currentNode;
 	}
 
+	// @SuppressWarnings("unchecked")
+	// public String printNode(Node head) {
+	// 	Node printNode = head;
+	// 	String nodeString = "";
+	// 	while (printNode != null) {
+	// 		T dataNode = printNode.getData();
+	// 		nodeString = nodeString + dataNode + ", ";
+	// 		printNode = printNode.next;
+	// 	}
+	// 	return nodeString;
+	// }
 	@SuppressWarnings("unchecked")
 	public String printNode(Node head) {
 		Node printNode = head;
-		String nodeString = "";
+		StringBuilder nodeString = new StringBuilder();
 		while (printNode != null) {
 			T dataNode = printNode.getData();
-			nodeString = nodeString + dataNode + ", ";
+			nodeString.append(dataNode);
+			nodeString.append(", ");
 			printNode = printNode.next;
+			
 		}
-		return nodeString;
+		String strNode = nodeString.toString();
+		return strNode;
 	}
 
-// 		@SuppressWarnings("unchecked")
-// 	public String printNode(Node head) {
-// 		Node printNode = head;
-// 		StringBuilder nodeString = new StringBuilder();
-// 		while (printNode != null) {
-// 			T dataNode = printNode.getData();
-// 			nodeString.append(dataNode);
-// 			nodeString.append(", ");
-// 			printNode = printNode.next;
-			
-// 		}
-// 		String strNode = nodeString.toString();
-// 		return strNode;
-// 	}
+	// public String toString() {
+	// 	String str = "";
+	// 	if(numberOfElements == 0){
+	// 		str = "[]";
+	// 	}
+	// 	 str = head + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
+	// 			+ this.head.getData() + "\ttail= " + this.tail.getData();
+	// 	return str;
+	// }
 
 	public String displayNode(){
 		String s = "";
@@ -216,15 +233,28 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		return s;
 	}
 
-	
+		// @Override
+		// public String toString(){
+		// 	//String data = head.data.toString();
+		// 	if(head == null){
+		// 		return "[]";
+		// 	}
+		// 	String data = head.data.toString();
+		// 	return "[" +
+				
+        //         String.join(", ", (CharSequence)data)
+        //                 + "]" + " size=" + numberOfElements + " capacity=" + MAX_SIZE + "\thead=" + head+ " tail=" + tail;
+		// }
 
-	public String toString() {
+		@Override
+		public String toString() {
 		String str = "";
 		if(head == null || tail == null){
 			str = "[]";
 		}
 		if(head!=null && tail!=null){
-		 str = printNode(head) + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
+		String nodePrint = printNode(head);
+		 str = nodePrint + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
 				+ this.head.getData() + "\ttail= " + this.tail.getData();
 			}
 		return str;

@@ -192,15 +192,20 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		return nodeString;
 	}
 
-	// public String toString() {
-	// 	String str = "";
-	// 	if(numberOfElements == 0){
-	// 		str = "[]";
-	// 	}
-	// 	 str = head + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
-	// 			+ this.head.getData() + "\ttail= " + this.tail.getData();
-	// 	return str;
-	// }
+// 		@SuppressWarnings("unchecked")
+// 	public String printNode(Node head) {
+// 		Node printNode = head;
+// 		StringBuilder nodeString = new StringBuilder();
+// 		while (printNode != null) {
+// 			T dataNode = printNode.getData();
+// 			nodeString.append(dataNode);
+// 			nodeString.append(", ");
+// 			printNode = printNode.next;
+			
+// 		}
+// 		String strNode = nodeString.toString();
+// 		return strNode;
+// 	}
 
 	public String displayNode(){
 		String s = "";

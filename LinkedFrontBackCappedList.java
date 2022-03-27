@@ -69,7 +69,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	public T removeFront() {
 		isInitialzied();
 		T removed = null;
-		if (head.getData() != null) {
+		if (head!= null) {
 			removed = head.getData();
 			head = head.next;
 			numberOfElements--;
@@ -78,7 +78,8 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	}
 
 	public T removeBack() {
-		if (tail.getData() != null) {
+		T removed = null;
+		if (tail!= null) {
 			Node previousNode = getNodeAt(numberOfElements - 1);
 			tail = previousNode;
 			numberOfElements--;
@@ -92,7 +93,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 
 	public T getEntry(int givenIndex) {
 		T entry = null;
-		if(!isEmpty()){
+		if(head!=null){
 			if(givenIndex >0 && givenIndex < numberOfElements){
 				Node nodeAt = getNodeAt(givenIndex);
 				entry = nodeAt.getData();
@@ -155,12 +156,14 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		}
 	}
 
-	private Node getNodeAt(int givenPosition) {
+	private Node getNodeAt(int givenIndex) {
 		Node currentNode = head;
 		if(currentNode!=null){
+			if(givenIndex >0 && givenIndex < numberOfElements){
 
-			for (int i = 0; i < givenPosition; i++) {
-				currentNode = currentNode.next;
+				for (int i = 0; i < givenIndex; i++) {
+					currentNode = currentNode.next;
+				}
 			}
 		}
 		return currentNode;

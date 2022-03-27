@@ -77,10 +77,28 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	// 	}
 	// }
 
-	public boolean addBack(T newEntry){
+// 	public boolean addBack(T newEntry){
+// 		Node newNode = new Node(newEntry);
+// 		if(canAdd()){
+// 			if(isEmpty()){
+// 				tail = newNode;
+// 				numberOfElements++;
+// 				return true;
+// 			}else{
+// 				tail.next = newNode;
+// 				tail = newNode;
+// 				numberOfElements++;
+// 				return true;
+// 				}
+// 		}else{
+// 			return false;
+// 		}
+// 	}
+	
+	public boolean addBack(T newEntry) {
 		Node newNode = new Node(newEntry);
-		if(canAdd()){
-			if(isEmpty()){
+		if (canAdd()) {
+			if(tail == null){
 				tail = newNode;
 				numberOfElements++;
 				return true;
@@ -89,28 +107,11 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 				tail = newNode;
 				numberOfElements++;
 				return true;
-				}
-		}else{
+			}
+		} else {
 			return false;
 		}
 	}
-	// public boolean addBack(T newEntry) {
-	// 	Node newNode = new Node(newEntry);
-	// 	if (canAdd()) {
-	// 		if(tail == null){
-	// 			tail = newNode;
-	// 			numberOfElements++;
-	// 			return true;
-	// 		}else{
-	// 			tail.next = newNode;
-	// 			tail = newNode;
-	// 			numberOfElements++;
-	// 			return true;
-	// 		}
-	// 	} else {
-	// 		return false;
-	// 	}
-	// }
 
 	private boolean canAdd() {
 		if (numberOfElements < MAX_SIZE) {

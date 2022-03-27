@@ -181,8 +181,8 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> String printNode(Node<T> firstNode) {
-		Node<T> printNode = firstNode;
+	public String printNode(Node head) {
+		Node printNode = head;
 		String nodeString = "";
 		while (printNode != null) {
 			T dataNode = printNode.getData();

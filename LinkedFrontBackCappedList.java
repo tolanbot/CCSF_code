@@ -64,9 +64,16 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	public boolean addBack(T newEntry) {
 		Node newNode = new Node(newEntry);
 		if (canAdd()) {
-			tail = newNode;
-			numberOfElements++;
-			return true;
+			if(tail == null){
+				tail = newNode;
+				numberOfElements++;
+				return true;
+			}else{
+				tail.next = newNode;
+				tail = newNode;
+				numberOfElements++;
+				return true;
+			}
 		} else {
 			return false;
 		}

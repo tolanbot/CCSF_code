@@ -5,7 +5,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	private Node head, tail;
 	private int numberOfElements;
 	private static final int DEFAULT_SIZE = 25;
-	private int MAX_SIZE = 100;
+	private int MAX_SIZE;
 	private boolean initialized = false;
 
 	public LinkedFrontBackCappedList() {
@@ -59,6 +59,27 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 			return false;
 		}
 	}
+
+	// public boolean addFront(T newEntry){
+	// 	Node newNode = new Node(newEntry);
+	// 	if(canAdd()){
+	// 	if(isEmpty()){
+	// 		head = newNode;
+	// 		tail = newNode;
+	// 		numberOfElements++;
+	// 		return true;
+	// 	}else{
+	// 		tail = head;
+	// 		newNode.next = head.next;
+	// 		head = newNode;
+	// 		numberOfElements++;
+	// 		return true;
+	// 		}
+	// 	}else{
+	// 		return false;
+	// 	}
+	// }
+
 	// public boolean addFront(T newEntry) {
 	// 	Node newNode = new Node(newEntry);
 	// 	if (canAdd()) {
@@ -77,24 +98,25 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	// 	}
 	// }
 
-// 	public boolean addBack(T newEntry){
-// 		Node newNode = new Node(newEntry);
-// 		if(canAdd()){
-// 			if(isEmpty()){
-// 				tail = newNode;
-// 				numberOfElements++;
-// 				return true;
-// 			}else{
-// 				tail.next = newNode;
-// 				tail = newNode;
-// 				numberOfElements++;
-// 				return true;
-// 				}
-// 		}else{
-// 			return false;
-// 		}
-// 	}
-	
+
+	// public boolean addBack(T newEntry){
+	// 	Node newNode = new Node(newEntry);
+	// 	if(canAdd()){
+	// 		if(isEmpty()){
+	// 			tail = newNode;
+	// 			numberOfElements++;
+	// 			return true;
+	// 		}else{
+	// 			tail.next = newNode;
+	// 			tail = newNode;
+	// 			numberOfElements++;
+	// 			return true;
+	// 			}
+	// 	}else{
+	// 		return false;
+	// 	}
+	// }
+
 	public boolean addBack(T newEntry) {
 		Node newNode = new Node(newEntry);
 		if (canAdd()) {
@@ -229,77 +251,67 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		return currentNode;
 	}
 
-	// @SuppressWarnings("unchecked")
-	// public String printNode(Node head) {
-	// 	Node printNode = head;
-	// 	String nodeString = "";
-	// 	while (printNode != null) {
-	// 		T dataNode = printNode.getData();
-	// 		nodeString = nodeString + dataNode + ", ";
-	// 		printNode = printNode.next;
-	// 	}
-	// 	return nodeString;
-	// }
 	@SuppressWarnings("unchecked")
 	public String printNode(Node head) {
 		Node printNode = head;
-		StringBuilder nodeString = new StringBuilder();
+		String nodeString = "";
 		while (printNode != null) {
 			T dataNode = printNode.getData();
-			nodeString.append(dataNode);
-			nodeString.append(", ");
+			nodeString = nodeString + dataNode + ", ";
 			printNode = printNode.next;
-			
 		}
-		String strNode = nodeString.toString();
-		return strNode;
+		return nodeString;
 	}
 
-	// public String toString() {
-	// 	String str = "";
-	// 	if(numberOfElements == 0){
-	// 		str = "[]";
+	// @SuppressWarnings("unchecked")
+	// private String printNode(Node head) {
+	// 	Node printNode = head;
+	// 	StringBuilder nodeString = new StringBuilder();
+	// 	while (printNode != null) {
+	// 		T dataNode = printNode.getData();
+	// 		nodeString.append(dataNode);
+	// 		nodeString.append(", ");
+	// 		printNode = printNode.next;	
 	// 	}
-	// 	 str = head + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
-	// 			+ this.head.getData() + "\ttail= " + this.tail.getData();
-	// 	return str;
+	// 	String strNode = nodeString.toString();
+	// 	return strNode;
 	// }
 
-	public String displayNode(){
-		String s = "";
-		Iterator<T> iterator = head.iterator();
-		while(iterator.hasNext()){
-			s = s + iterator.next() + ", ";
-		}
-		return s;
-	}
 
-		// @Override
-		// public String toString(){
-		// 	//String data = head.data.toString();
-		// 	if(head == null){
-		// 		return "[]";
-		// 	}
-		// 	String data = head.data.toString();
-		// 	return "[" +
-				
-        //         String.join(", ", (CharSequence)data)
-        //                 + "]" + " size=" + numberOfElements + " capacity=" + MAX_SIZE + "\thead=" + head+ " tail=" + tail;
-		// }
+	// private String displayNode(){
+	// 	String s = "";
+	// 	Iterator<T> iterator = head.iterator();
+	// 	while(iterator.hasNext()){
+	// 		s = s + iterator.next() + ", ";
+	// 	}
+	// 	return s;
+	// }
 
-	@Override
-	public String toString() {
-		String str = "";
-		if(head == null || tail == null){
-			str = "[]";
-			}
-			if(head!=null && tail!=null){
-			String nodePrint = printNode(head);
-		 	str = nodePrint + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
-				+ this.head.getData() + "\ttail= " + this.tail.getData();
-			}
-			return str;
-	}
+	// @Override
+	// public String toString(){
+	// 	String s ="";
+	// 	T tailData = tail.data;
+    //     T headData = head.data;
+	// 	String nodePrint = printNode(head);
+	// 	if(head != null) {
+    //         s =  String.join(", ", nodePrint) + " size=" + numberOfElements + " capacity=" + MAX_SIZE + "\thead=" + headData+ " tail=" + tailData;
+    //     }
+	// 	return s;
+	// }
+
+	// @Override
+	// public String toString() {
+	// String str = "";
+	// if(head == null || tail == null){
+	// 	str = "[]";
+	// 	}
+	// 	if(head!=null && tail!=null){
+	// 	String nodePrint = printNode(head);
+	// 	 str = nodePrint + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
+	// 			+ this.head.getData() + "\ttail= " + this.tail.getData();
+	// 		}
+	// 	return str;
+	// }
 
 	public T[] toArray() {
 		// The cast is safe because the new array contains null entries

@@ -181,7 +181,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> void printNode(Node<T> firstNode) {
+	public <T> String printNode(Node<T> firstNode) {
 		Node<T> printNode = firstNode;
 		while (printNode != null) {
 			T dataNode = printNode.getData();
@@ -200,13 +200,24 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	// 	return str;
 	// }
 
+	public String displayNode(){
+		String s = "";
+		Iterator<T> iterator = head.iterator();
+		while(iterator.hasNext()){
+			s = s + iterator.next() + ", ";
+		}
+		return s;
+	}
+
+	
+
 	public String toString() {
 		String str = "";
 		if(head == null || tail == null){
 			str = "[]";
 		}
 		if(head!=null && tail!=null){
-		 str = head + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
+		 str = head.displayNode() + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
 				+ this.head.getData() + "\ttail= " + this.tail.getData();
 			}
 		return str;

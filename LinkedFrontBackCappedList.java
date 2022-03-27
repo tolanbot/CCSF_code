@@ -102,23 +102,23 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		return entry;
 	}
 
-	public int indexOf(T anEntry) {
+	
+		public int indexOf(T anEntry) {
 		int index = -1;
-		if (head != null) {
-			
-			for (int i = 1; i < numberOfElements-1; i++) {
-				if (getNodeAt(i).equals(anEntry)) {
-					index = i;
-					return index;
-				}
+		Node current = head;
+		while (head != null) {
+			index++;
+			if(current.getData().equals(anEntry)){
+				return index;
+			}else{
+				current = current.next;
 			}
 		}
 		return index;
 	}
-
 	public int lastIndexOf(T anEntry) {
 		int index = -1;
-		if (head != null) {
+		while (head != null) {
 			for (int i = numberOfElements; i < 0; i--) {
 				if (getNodeAt(i).equals(anEntry)) {
 					index = i;
@@ -162,7 +162,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		if(currentNode!=null){
 			if(givenIndex >0 && givenIndex < numberOfElements-1){
 
-				for (int i = 0; i < givenIndex; i++) {
+				for (int i = 1; i < givenIndex; i++) {
 					currentNode = currentNode.next;
 				}
 			}

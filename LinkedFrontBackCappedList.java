@@ -190,11 +190,11 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		}
 	}
 
-	public String toString() {
-		String str = printNode(head) + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
-				+ head.getData() + "\ttail= " + tail.getData();
-		return str;
-	}
+	// public String toString() {
+	// 	String str =  "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
+	// 			+ head.getData() + "\ttail= " + tail.getData();
+	// 	return str;
+	// }
 
 	public T[] toArray() {
 		// The cast is safe because the new array contains null entries

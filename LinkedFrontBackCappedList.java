@@ -118,7 +118,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	}
 	public int lastIndexOf(T anEntry) {
 		int index = -1;
-		while (head != null) {
+		if (head != null) {
 			for (int i = numberOfElements; i < 0; i--) {
 				if (getNodeAt(i).equals(anEntry)) {
 					index = i;

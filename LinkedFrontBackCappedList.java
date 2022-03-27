@@ -287,18 +287,18 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
         //                 + "]" + " size=" + numberOfElements + " capacity=" + MAX_SIZE + "\thead=" + head+ " tail=" + tail;
 		// }
 
-		@Override
-		public String toString() {
+	@Override
+	public String toString() {
 		String str = "";
 		if(head == null || tail == null){
 			str = "[]";
-		}
-		if(head!=null && tail!=null){
-		String nodePrint = printNode(head);
-		 str = nodePrint + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
+			}
+			if(head!=null && tail!=null){
+			String nodePrint = printNode(head);
+		 	str = nodePrint + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
 				+ this.head.getData() + "\ttail= " + this.tail.getData();
 			}
-		return str;
+			return str;
 	}
 
 	public T[] toArray() {

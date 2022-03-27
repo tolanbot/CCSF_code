@@ -190,13 +190,23 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		}
 	}
 
+	// public String toString() {
+	// 	String str = "";
+	// 	if(numberOfElements == 0){
+	// 		str = "[]";
+	// 	}
+	// 	 str = head + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
+	// 			+ this.head.getData() + "\ttail= " + this.tail.getData();
+	// 	return str;
+	// }
+
 	public String toString() {
 		String str = "";
-		if(numberOfElements == 0){
+		if(head == null || tail == null){
 			str = "[]";
 		}
 		if(head!=null && tail!=null){
-		 str =  "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
+		 str = head + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
 				+ this.head.getData() + "\ttail= " + this.tail.getData();
 			}
 		return str;

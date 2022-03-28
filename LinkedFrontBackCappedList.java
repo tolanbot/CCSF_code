@@ -47,10 +47,11 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		if(canAdd()){
 		if(isEmpty()){
 			head = newNode;
+			tail = head;
 			numberOfElements++;
 			return true;
 		}else{
-			newNode.next = head.next;
+			newNode.next = head;
 			head = newNode;
 			numberOfElements++;
 			return true;
@@ -122,6 +123,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		if (canAdd()) {
 			if(tail == null){
 				tail = newNode;
+				head = tail;
 				numberOfElements++;
 				return true;
 			}else{
@@ -334,8 +336,8 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		}
 		if(head!=null && tail!=null){
 		String testString = nodeList(head).toString();
-		 str = testString + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
-				+ this.head.getData() + "\ttail= " + this.tail.getData();
+		 str = testString + "size= " + numberOfElements + "capacity=" + MAX_SIZE + "head="
+				+ this.head.getData() + "\ttail=" + this.tail.getData();
 			}
 		return str;
 	}

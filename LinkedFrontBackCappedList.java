@@ -134,14 +134,15 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 			return 0;
 		}
 		while (current != null) {
-			index++;
 			if (current.getData().equals(anEntry)) {
+				index++;
 				return index;
 			} else {
+				index++;
 				current = current.next;
 			}
 		}
-		return index;
+		return -1;
 	}
 
 	public int lastIndexOf(T anEntry) {

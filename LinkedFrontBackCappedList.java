@@ -4,8 +4,9 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 
 	private Node head, tail;
 	private int numberOfElements;
+	private int capacity;
 	private static final int DEFAULT_SIZE = 25;
-	private int MAX_SIZE = 1000;
+	private static final int MAX_SIZE = 1000;
 	private boolean initialized = false;
 
 	public LinkedFrontBackCappedList() {
@@ -14,10 +15,9 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 
 	public LinkedFrontBackCappedList(int capacity) {
 		initializeDataFields();
-		if (capacityOK(capacity)) {
-			MAX_SIZE = capacity;
+		if(capacityOK(capacity)){
+			this.capacity = capacity;
 		}
-
 		initialized = true;
 	}
 
@@ -61,24 +61,6 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		}
 	}
 
-	// public boolean addBack(T newEntry){
-	// Node newNode = new Node(newEntry);
-	// if(canAdd()){
-	// if(isEmpty()){
-	// tail = newNode;
-	// numberOfElements++;
-	// return true;
-	// }else{
-	// tail.next = newNode;
-	// tail = newNode;
-	// numberOfElements++;
-	// return true;
-	// }
-	// }else{
-	// return false;
-	// }
-	// }
-
 	public boolean addBack(T newEntry) {
 		Node newNode = new Node(newEntry);
 		if (canAdd()) {
@@ -99,11 +81,8 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	}
 
 	private boolean canAdd() {
-		if (numberOfElements < MAX_SIZE) {
-			return true;
-		} else {
-			return false;
-		}
+		return numberOfElements < capacity;
+	
 	}
 
 	public T removeFront() {
@@ -197,7 +176,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	}
 
 	public boolean isFull() {
-		return numberOfElements >= MAX_SIZE;
+		return numberOfElements >= capacity;
 	}
 
 	public boolean isEmpty() {
@@ -258,7 +237,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		}
 		if (head != null && tail != null) {
 			String listString = nodeList(head).toString();
-			str = listString + "\tsize=" + numberOfElements + "\tcapacity=" + MAX_SIZE + "\thead="
+			str = listString + "\tsize=" + numberOfElements + "\tcapacity=" + capacity + "\thead="
 					+ this.head.getData() + "\ttail=" + this.tail.getData();
 		}
 		return str;

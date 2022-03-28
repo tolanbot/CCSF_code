@@ -299,19 +299,19 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	// 	return s;
 	// }
 
-	// @Override
-	// public String toString() {
-	// String str = "";
-	// if(head == null || tail == null){
-	// 	str = "[]";
-	// 	}
-	// 	if(head!=null && tail!=null){
-	// 	String nodePrint = printNode(head);
-	// 	 str = nodePrint + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
-	// 			+ this.head.getData() + "\ttail= " + this.tail.getData();
-	// 		}
-	// 	return str;
-	// }
+	@Override
+	public String toString() {
+	String str = "";
+	if(head == null || tail == null){
+		str = "[]";
+		}
+		if(head!=null && tail!=null){
+		String nodePrint = printNode(head);
+		 str = nodePrint + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
+				+ this.head.getData() + "\ttail= " + this.tail.getData();
+			}
+		return str;
+	}
 
 	public T[] toArray() {
 		// The cast is safe because the new array contains null entries

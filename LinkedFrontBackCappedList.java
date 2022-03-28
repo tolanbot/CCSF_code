@@ -115,8 +115,8 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 
 	public T getEntry(int givenIndex) {
 		T entry = null;
-		if (head != null) {
-			if (givenIndex > 0 && givenIndex < numberOfElements) {
+		if (!isEmpty()) {
+			if (givenIndex >= 0 && givenIndex < numberOfElements) {
 				Node nodeAt = getNodeAt(givenIndex);
 				entry = nodeAt.getData();
 			}

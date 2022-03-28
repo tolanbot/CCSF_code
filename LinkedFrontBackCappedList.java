@@ -205,10 +205,9 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 
 	public boolean contains(T key) {
 		boolean found = false;
-
 		Node current = head;
 		while (!found && current != null) {
-			if (current.equals(key)) {
+			if (current.data.equals(key)) {
 				found = true;
 			} else {
 				current = current.next;
@@ -216,7 +215,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		}
 		return found;
 	}
-
+	
 	public int size() {
 		return this.numberOfElements;
 	}

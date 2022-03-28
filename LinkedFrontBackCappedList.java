@@ -251,18 +251,44 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		return currentNode;
 	}
 
+	// @SuppressWarnings("unchecked")
+	// public String printNode(Node head) {
+	// 	Node printNode = head;
+	// 	String nodeString = "";
+	// 	while (printNode != null) {
+	// 		T dataNode = printNode.getData();
+	// 		nodeString = nodeString + dataNode + ", ";
+	// 		printNode = printNode.next;
+	// 	}
+	// 	return nodeString;
+	// }
+
+	// public String printNode(Node head) {
+	//     if (head == null)
+    //          return "";
+	// 	Node printNode = head;
+	// 	String nodeString = printNode.data.toString();
+	// 	printNode = printNode.next;
+	// 	while (printNode != null) {
+	// 		nodeString += ", "+printNode.data ;
+	// 		printNode = printNode.next;
+	// 	}
+	// 	return nodeString;
+	// }
+
 	@SuppressWarnings("unchecked")
-	public String printNode(Node head) {
-		Node printNode = head;
-		String nodeString = "";
-		while (printNode != null) {
-			T dataNode = printNode.getData();
-			nodeString = nodeString + dataNode + ", ";
-			printNode = printNode.next;
+	public ArrayList nodeList(Node head) {
+		Node currentNode = head;
+		ArrayList<String> list = new ArrayList<>();
+		while (currentNode != null) {
+			String dataNode = currentNode.getData().toString();
+			list.add(dataNode);
+			currentNode = currentNode.next;
 		}
-		return nodeString;
+		return list;
 	}
 
+	//one i was using
 	// @SuppressWarnings("unchecked")
 	// private String printNode(Node head) {
 	// 	Node printNode = head;
@@ -299,6 +325,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	// 	return s;
 	// }
 
+	//was the closest
 	@Override
 	public String toString() {
 	String str = "";
@@ -306,12 +333,32 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		str = "[]";
 		}
 		if(head!=null && tail!=null){
-		String nodePrint = printNode(head);
-		 str = nodePrint + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
+		String testString = nodeList(head).toString();
+		 str = testString + "\tsize= " + numberOfElements + "\tcapacity= " + MAX_SIZE + "\thead= "
 				+ this.head.getData() + "\ttail= " + this.tail.getData();
 			}
 		return str;
 	}
+
+	// @Override
+    // public String toString()
+    // {
+    //   ArrayList<T> list = new ArrayList<T>(); 
+    //   Node current = head;
+
+    //   while(current != null) {
+    //       list.add(current.data);
+    //       current = current.next;
+    //   }
+
+    //   String  aString = list.toString() +"     size="+numberOfElements+"  capacity="+MAX_SIZE;
+
+    //   if(head == null) {
+    //       return aString;
+    //   } else {
+    //       return  aString  +" head="+head.data +" tail="+tail.data;
+    //   }
+    // }
 
 	public T[] toArray() {
 		// The cast is safe because the new array contains null entries

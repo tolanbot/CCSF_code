@@ -144,19 +144,39 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		}
 		return -1;
 	}
-
-	public int lastIndexOf(T anEntry) {
-		int index = -1;
-		if (head != null) {
-			for (int i = numberOfElements; i < 0; i--) {
-				if (getNodeAt(i).equals(anEntry)) {
-					index = i;
-					return index;
-				}
-			}
+	public int lastIndexOf(T anEntry){
+		int index = numberOfElements-1;
+		if(numberOfElements == 0){
+			return -1;
 		}
-		return index;
+
+		while(index>=0){
+			Node n = getNodeAt(index);
+			T entry = n.getData();
+			if(entry.equals(anEntry)){
+				return index;
+			}
+		index--;
+		}
+		return -1;
 	}
+
+	// public int lastIndexOf(T anEntry) {
+	// 	int index = -1;
+	// 	if(numberOfElements == 0){
+	// 		return -1;
+	// 	}
+	// 		for (int i = numberOfElements-1; i >= 0; i = i-1) {
+	// 				Node n  = getNodeAt(i);
+	// 				T data = n.getData();
+	// 			if (data.equals(anEntry)) {
+	// 				index = i;
+	// 				return index;
+	// 			}
+	// 		}
+		
+	// 	return index;
+	// }
 
 	public boolean isFull() {
 		return numberOfElements >= MAX_SIZE;
@@ -190,7 +210,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		}
 	}
 
-	private Node getNodeAt(int givenIndex) {
+	public Node getNodeAt(int givenIndex) {
 		Node currentNode = head;
 		if (currentNode != null) {
 			if (givenIndex > 0 && givenIndex < numberOfElements - 1) {
@@ -222,8 +242,8 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		}
 		if(head!=null && tail!=null){
 		String listString = nodeList(head).toString();
-		 str = listString + " size=" + numberOfElements + " capacity=" + MAX_SIZE + "\thead="
-				+ this.head.getData() + " tail=" + this.tail.getData();
+		 str = listString + "\tsize=" + numberOfElements + "\tcapacity=" + MAX_SIZE + "\thead="
+				+ this.head.getData() + "\ttail=" + this.tail.getData();
 			}
 		return str;
 	}

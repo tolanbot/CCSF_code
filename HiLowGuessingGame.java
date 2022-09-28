@@ -18,10 +18,11 @@ public class HiLowGuessingGame extends Application {
     private TextField field;
     private Text gameTitle, gamePrompt, guessResult, gameOver, test;
     private Scene scene;
-    private VBox v, v2, v3;// guessBox;
+    private VBox v, v2, v3;
     private StackPane pane;
     private int random, guessCount;
     private static int printCount;
+
     private Random r;
     private boolean low, high, errBool, showNumBool;
     private String onOff;
@@ -88,7 +89,6 @@ public class HiLowGuessingGame extends Application {
         playAgain.setOnAction(this::buttonHandler);
 
         // initialize & format layout panes
-
         Rectangle rect = new Rectangle(275, 75);
         rect.setFill(Color.TRANSPARENT);
         rect.setStroke(Color.BLACK);
@@ -231,5 +231,4 @@ public class HiLowGuessingGame extends Application {
     public static void main(String[] args) {
         launch();
     }
-
 }

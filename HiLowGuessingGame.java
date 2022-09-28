@@ -112,9 +112,10 @@ public class HiLowGuessingGame extends Application {
         v3.setPadding(new Insets(100));
 
         // set scene
+        stage.setTitle("GUESSING GAME");
         showNumBool = false;
         test.setVisible(false);
-        stage.setTitle("GUESSING GAME");
+        r = new Random();
         pane = new StackPane(rect, v);
         scene = new Scene(pane, 400, 400, Color.gray(0.8));
         stage.setScene(scene);
@@ -218,7 +219,6 @@ public class HiLowGuessingGame extends Application {
     }
 
     private void play() {
-        r = new Random();
         random = r.nextInt(1, 101);
         test.setText(String.valueOf(random));
         scene.setRoot(v2);

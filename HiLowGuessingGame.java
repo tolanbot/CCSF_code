@@ -1,7 +1,3 @@
-// CS 211S FALL 2022
-// Module 4:5 HW
-// Author: Chris Tolan
-
 package hellofx;
 
 import java.util.Random;

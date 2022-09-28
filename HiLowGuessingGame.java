@@ -22,7 +22,6 @@ public class HiLowGuessingGame extends Application {
     private StackPane pane;
     private int random, guessCount;
     private static int printCount;
-
     private Random r;
     private boolean low, high, errBool, showNumBool;
     private String onOff;
@@ -64,7 +63,6 @@ public class HiLowGuessingGame extends Application {
 
         // initialize text
         gameTitle = new Text("TOLAN'S TRICKY\nGUESSING GAME\n");
-
         gamePrompt = new Text("GUESS\nTHE COMPUTER'S NUMBER");
         guessResult = new Text();
         gameOver = new Text("GAME OVER");
@@ -99,11 +97,6 @@ public class HiLowGuessingGame extends Application {
         rect.setArcHeight(10);
         rect.setArcWidth(10);
         rect.setTranslateY(-65);
-
-        // rect.
-        // guessBox = new VBox(gamePrompt, field, guessResult, enter);
-        // guessBox.setAlignment(Pos.CENTER);
-        // guessBox.setSpacing(10);
 
         v = new VBox(gameTitle, start, showNum, quit);
         v.setAlignment(Pos.CENTER);

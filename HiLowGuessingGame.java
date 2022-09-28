@@ -22,13 +22,11 @@ public class HiLowGuessingGame extends Application {
     private StackPane pane;
     private int random, guessCount;
     private static int printCount;
-
     private Random r;
     private boolean low, high, errBool, showNumBool;
     private String onOff;
 
     public void start(Stage stage) {
-
         // initialize buttons
         start = new Button("START GAME");
         start.setFont(Font.font("Monospace", FontWeight.EXTRA_BOLD, 12));

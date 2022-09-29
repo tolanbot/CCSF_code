@@ -18,13 +18,13 @@ public class HiLowGuessingGame extends Application {
     private TextField field;
     private Text gameTitle, gamePrompt, guessResult, gameOver, test;
     private Scene scene;
-    private VBox v, v2, v3;
+    private VBox v, v2, v3, v4;
     private StackPane pane;
     private int random, guessCount;
-    private static int printCount;
     private Random r;
     private boolean low, high, errBool, showNumBool;
     private String onOff;
+    private static int printCount;
 
     public void start(Stage stage) {
         // initialize buttons
@@ -94,12 +94,12 @@ public class HiLowGuessingGame extends Application {
         rect.arcHeightProperty();
         rect.setArcHeight(10);
         rect.setArcWidth(10);
-        rect.setTranslateY(-65);
+        rect.setTranslateY(-15);
 
-        v = new VBox(gameTitle, start, showNum, quit);
+        v = new VBox(start, showNum, quit);
         v.setAlignment(Pos.CENTER);
         v.setSpacing(10);
-        v.setPadding(new Insets(100));
+        v.setPadding(new Insets(40, 0, 0, 0));
 
         v2 = new VBox(gamePrompt, field, guessResult, enter, end, test);
         v2.setAlignment(Pos.CENTER);
@@ -111,13 +111,18 @@ public class HiLowGuessingGame extends Application {
         v3.setSpacing(10);
         v3.setPadding(new Insets(100));
 
+        pane = new StackPane(rect, gameTitle);
+        pane.setPadding(new Insets(100, 0, 0, 0));
+
+        v4 = new VBox(pane, v);
+
         // set scene
         stage.setTitle("GUESSING GAME");
         showNumBool = false;
         test.setVisible(false);
         r = new Random();
-        pane = new StackPane(rect, v);
-        scene = new Scene(pane, 400, 400, Color.gray(0.8));
+
+        scene = new Scene(v4, 400, 400, Color.gray(0.8));
         stage.setScene(scene);
         stage.show();
     }
@@ -178,8 +183,13 @@ public class HiLowGuessingGame extends Application {
                 field.clear();
             }
             printCount = (printCount < 1) ? printCount + 1 : 0;
+            field.requestFocus();
         } else if (e.getSource() == end || e.getSource() == mainMenu) {
-            scene.setRoot(pane);
+            if (v2.getChildren().get(3) == playAgain) {
+                v2.getChildren().remove(playAgain);
+                v2.getChildren().add(3, enter);
+            }
+            scene.setRoot(v4);
         } else if (e.getSource() == quit) {
             Platform.exit();
         } else if (e.getSource() == showNum) {

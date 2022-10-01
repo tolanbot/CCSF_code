@@ -13,7 +13,6 @@ import javafx.scene.text.*;
 import javafx.stage.*;
 
 public class HiLowGuessingGame extends Application {
-
     private Button start, enter, end, quit, mainMenu, showNum, playAgain;
     private TextField field;
     private Text gameTitle, gamePrompt, guessResult, gameOver, test;
@@ -22,9 +21,14 @@ public class HiLowGuessingGame extends Application {
     private StackPane pane;
     private int random, guessCount;
     private Random r;
-    private boolean low, high, errBool, showNumBool;
+    private boolean low, high, errBool, showNumBool, negBool, posBool, textBool;
     private String onOff;
-    private static int printCount;
+    private int printCount;
+    private String[] lowArr = { "Too Low...", "Still Too Low..." };
+    private String[] highArr = { "Too High...", "Still Too High..." };
+    private String[] errorArr = { "Please Enter a Numeric Value", "Program Will Only Work With Numeric Value" };
+    private String[] negArr = { "Number Must be Greater than 0", "Please Enter a Positive Number Between 1 and 100" };
+    private String[] posArr = { "Number Must be 100 or Less", "Please Enter a Positive Number Between 1 and 100" };
 
     public void start(Stage stage) {
         // initialize buttons
@@ -61,7 +65,7 @@ public class HiLowGuessingGame extends Application {
         showNum.setFont(Font.font("Monospace", FontWeight.EXTRA_BOLD, 12));
 
         // initialize text
-        gameTitle = new Text("TOLAN'S TRICKY\nGUESSING GAME\n");
+        gameTitle = new Text("SEO-LAN'S TRICKY\nGUESSING GAME\n");
         gamePrompt = new Text("GUESS\nTHE COMPUTER'S NUMBER");
         guessResult = new Text();
         gameOver = new Text("GAME OVER");
@@ -96,6 +100,16 @@ public class HiLowGuessingGame extends Application {
         rect.setArcWidth(10);
         rect.setTranslateY(-15);
 
+        Rectangle rect2 = new Rectangle(275, 75);
+        rect2.setFill(Color.TRANSPARENT);
+        rect2.setStroke(Color.gray(.7));
+        rect2.setStrokeWidth(5);
+        rect2.arcHeightProperty();
+        rect2.setArcHeight(10);
+        rect2.setArcWidth(10);
+        rect2.setTranslateY(-18);
+        rect2.setTranslateX(2);
+
         v = new VBox(start, showNum, quit);
         v.setAlignment(Pos.CENTER);
         v.setSpacing(10);
@@ -111,7 +125,7 @@ public class HiLowGuessingGame extends Application {
         v3.setSpacing(10);
         v3.setPadding(new Insets(100));
 
-        pane = new StackPane(rect, gameTitle);
+        pane = new StackPane(rect2, rect, gameTitle);
         pane.setPadding(new Insets(100, 0, 0, 0));
 
         v4 = new VBox(pane, v);
@@ -128,67 +142,11 @@ public class HiLowGuessingGame extends Application {
     }
 
     private void buttonHandler(ActionEvent e) {
-        String[] lowArr = { "Too Low...", "Still Too Low..." };
-        String[] highArr = { "Too High...", "Still Too High..." };
-        String[] errorArr = { "Please Enter a Numeric Value", "Program Will Only Work With Numeric Value" };
-        String[] negArr = { "Number Must be Greater than 0", "Please Enter a Positive Number Between 1 and 100" };
-        String[] posArr = { "Number Must be 100 or Less", "Please Enter a Positive Number Between 1 and 100" };
-        String s = "";
-        int i;
         if (e.getSource() == start) {
             play();
         } else if (e.getSource() == enter || e.getSource() == field) {
-            if (!field.getText().isEmpty() && isNumeric(field.getText())) {
-                i = Integer.parseInt(field.getText());
-                if (guessCount == 9) {
-                    scene.setRoot(v3);
-                }
-                if (i == 0 || i < 0) {
-                    s = negArr[printCount];
-                    errBool = true;
-                }
-                if (i > 100) {
-                    s = posArr[printCount];
-                    errBool = true;
-                }
-                if (i > 0 && i <= 100) {
-                    if (i < random && i > 0) {
-                        if (high == true || errBool == true) {
-                            printCount = 0;
-                        }
-                        s = lowArr[printCount];
-                        high = errBool = false;
-                        low = true;
-                    }
-                    if (i > random && i <= 100) {
-                        if (low == true || errBool == true) {
-                            printCount = 0;
-                        }
-                        s = highArr[printCount];
-                        high = true;
-                        low = errBool = false;
-                    }
-                    if (i == random) {
-                        s = "Just Right!!! The number was: " + random;
-                        v2.getChildren().remove(enter);
-                        v2.getChildren().add(3, playAgain);
-                        high = low = false;
-                    }
-                    guessCount++;
-                }
-                field.clear();
-            } else {
-                errBool = true;
-                s = errorArr[printCount];
-                field.clear();
-            }
-            printCount = (printCount < 1) ? printCount + 1 : 0;
-            field.requestFocus();
+            checkInput();
         } else if (e.getSource() == end || e.getSource() == mainMenu) {
-            if (v2.getChildren().get(3) == playAgain) {
-                v2.getChildren().remove(playAgain);
-                v2.getChildren().add(3, enter);
-            }
             scene.setRoot(v4);
         } else if (e.getSource() == quit) {
             Platform.exit();
@@ -203,14 +161,11 @@ public class HiLowGuessingGame extends Application {
             onOff = (showNumBool == true) ? " ON" : "OFF";
             showNum.setText("SHOW RANDOM NUMBER: " + onOff);
         } else if (e.getSource() == playAgain) {
-            v2.getChildren().remove(playAgain);
-            v2.getChildren().add(3, enter);
             play();
         }
-        guessResult.setText(s);
     }
 
-    private static boolean isNumeric(String str) {
+    private boolean isNumeric(String str) {
         char[] charArr = str.toCharArray();
         if (charArr[0] == '-') {
             for (int i = 1; i < charArr.length; i++) {
@@ -231,10 +186,80 @@ public class HiLowGuessingGame extends Application {
     private void play() {
         random = r.nextInt(1, 101);
         test.setText(String.valueOf(random));
-        scene.setRoot(v2);
         guessCount = printCount = 0;
-        errBool = false;
-    };
+        guessResult.setText("");
+        errBool = posBool = negBool = textBool = false;
+        if (v2.getChildren().get(3) == playAgain) {
+            v2.getChildren().remove(playAgain);
+            v2.getChildren().add(3, enter);
+        }
+        scene.setRoot(v2);
+    }
+
+    private void checkInput() {
+        String s = "";
+        int i;
+        if (!field.getText().isEmpty() && isNumeric(field.getText())) {
+            i = Integer.parseInt(field.getText());
+            if (guessCount == 9) {
+                scene.setRoot(v3);
+            }
+            if (i == 0 || i < 0) {
+                if (errBool && posBool || textBool) {
+                    printCount = 0;
+                }
+                errBool = negBool = true;
+                posBool = textBool = false;
+                s = negArr[printCount];
+            }
+            if (i > 100) {
+                if (errBool && negBool || textBool) {
+                    printCount = 0;
+                }
+                errBool = posBool = true;
+                negBool = textBool = false;
+                s = posArr[printCount];
+            }
+            if (i > 0 && i <= 100) {
+                if (i < random && i > 0) {
+                    if (high == true || errBool == true || textBool == true) {
+                        printCount = 0;
+                    }
+                    s = lowArr[printCount];
+                    high = errBool = posBool = negBool = textBool = false;
+                    low = true;
+                }
+                if (i > random && i <= 100) {
+                    if (low == true || errBool == true || textBool == true) {
+                        printCount = 0;
+                    }
+                    s = highArr[printCount];
+                    low = errBool = posBool = negBool = textBool = false;
+                    high = true;
+                }
+                if (i == random) {
+                    s = "Just Right!!! The number was: " + random;
+                    v2.getChildren().remove(enter);
+                    v2.getChildren().add(3, playAgain);
+                    high = low = posBool = negBool = errBool = textBool = false;
+                }
+                guessCount++;
+            }
+            field.clear();
+        } else {
+            errBool = true;
+            if (posBool || negBool == true) {
+                printCount = 0;
+            }
+            textBool = true;
+            s = errorArr[printCount];
+            posBool = negBool = false;
+            field.clear();
+        }
+        printCount = (printCount < 1) ? printCount + 1 : 0;
+        field.requestFocus();
+        guessResult.setText(s);
+    }
 
     public static void main(String[] args) {
         launch();

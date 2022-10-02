@@ -1,5 +1,4 @@
 package hellofx;
-
 import java.util.Random;
 import javafx.application.*;
 import javafx.event.ActionEvent;
@@ -21,7 +20,7 @@ public class HiLowGuessingGame extends Application {
     private StackPane pane;
     private int random, guessCount;
     private Random r;
-    private boolean low, high, errBool, showNumBool, negBool, posBool, textBool;
+    private boolean low, high, errBool, showNumBool, negBool, posBool, textBool, goodGuess;
     private String onOff;
     private int printCount;
     private String[] lowArr = { "Too Low...", "Still Too Low..." };
@@ -135,7 +134,6 @@ public class HiLowGuessingGame extends Application {
         showNumBool = false;
         test.setVisible(false);
         r = new Random();
-
         scene = new Scene(v4, 400, 400, Color.gray(0.8));
         stage.setScene(scene);
         stage.show();
@@ -189,9 +187,13 @@ public class HiLowGuessingGame extends Application {
         guessCount = printCount = 0;
         guessResult.setText("");
         errBool = posBool = negBool = textBool = false;
+        goodGuess = true;
         if (v2.getChildren().get(3) == playAgain) {
             v2.getChildren().remove(playAgain);
             v2.getChildren().add(3, enter);
+        }
+        if(field.isDisabled()){
+            field.setDisable(false);
         }
         scene.setRoot(v2);
     }
@@ -205,20 +207,20 @@ public class HiLowGuessingGame extends Application {
                 scene.setRoot(v3);
             }
             if (i == 0 || i < 0) {
-                if (errBool && posBool || textBool) {
+                if (errBool && posBool || textBool || goodGuess && !errBool) {
                     printCount = 0;
                 }
-                errBool = negBool = true;
-                posBool = textBool = false;
                 s = negArr[printCount];
+                errBool = negBool = true;
+                posBool = textBool = goodGuess = false;
             }
             if (i > 100) {
-                if (errBool && negBool || textBool) {
+                if (errBool && negBool || textBool || goodGuess && !errBool) {
                     printCount = 0;
                 }
-                errBool = posBool = true;
-                negBool = textBool = false;
                 s = posArr[printCount];
+                errBool = posBool = true;
+                negBool = textBool = goodGuess = false;
             }
             if (i > 0 && i <= 100) {
                 if (i < random && i > 0) {
@@ -227,7 +229,7 @@ public class HiLowGuessingGame extends Application {
                     }
                     s = lowArr[printCount];
                     high = errBool = posBool = negBool = textBool = false;
-                    low = true;
+                    low = goodGuess = true;
                 }
                 if (i > random && i <= 100) {
                     if (low == true || errBool == true || textBool == true) {
@@ -235,10 +237,11 @@ public class HiLowGuessingGame extends Application {
                     }
                     s = highArr[printCount];
                     low = errBool = posBool = negBool = textBool = false;
-                    high = true;
+                    high = goodGuess = true;
                 }
                 if (i == random) {
                     s = "Just Right!!! The number was: " + random;
+                    field.setDisable(true);
                     v2.getChildren().remove(enter);
                     v2.getChildren().add(3, playAgain);
                     high = low = posBool = negBool = errBool = textBool = false;
@@ -247,13 +250,12 @@ public class HiLowGuessingGame extends Application {
             }
             field.clear();
         } else {
-            errBool = true;
-            if (posBool || negBool == true) {
+            if (posBool || negBool || goodGuess && !errBool) {
                 printCount = 0;
             }
-            textBool = true;
+            errBool = textBool = true;
+            posBool = negBool = goodGuess = false;
             s = errorArr[printCount];
-            posBool = negBool = false;
             field.clear();
         }
         printCount = (printCount < 1) ? printCount + 1 : 0;

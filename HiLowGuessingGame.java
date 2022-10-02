@@ -134,6 +134,7 @@ public class HiLowGuessingGame extends Application {
         showNumBool = false;
         test.setVisible(false);
         r = new Random();
+
         scene = new Scene(v4, 400, 400, Color.gray(0.8));
         stage.setScene(scene);
         stage.show();
@@ -166,6 +167,9 @@ public class HiLowGuessingGame extends Application {
     private boolean isNumeric(String str) {
         char[] charArr = str.toCharArray();
         if (charArr[0] == '-') {
+            if(charArr.length==1){
+                return false;
+            }
             for (int i = 1; i < charArr.length; i++) {
                 if (!Character.isDigit(charArr[i])) {
                     return false;
@@ -206,7 +210,7 @@ public class HiLowGuessingGame extends Application {
             if (guessCount == 9) {
                 scene.setRoot(v3);
             }
-            if (i == 0 || i < 0) {
+            if (i <=0){
                 if (errBool && posBool || textBool || goodGuess && !errBool) {
                     printCount = 0;
                 }
